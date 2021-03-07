@@ -53,7 +53,7 @@ export default function Line(props) {
         title: {
           display: true,
           text: title,
-          fontColor: "#ffffff",
+          fontColor: "#757575",
           fontSize: 20,
           fontFamily: "Helvetica",
           fontStyle: "normal",
@@ -66,6 +66,14 @@ export default function Line(props) {
           display: false,
           position: "right",
         },
+        layout: {
+          padding: {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          },
+        },
         scales: {
           xAxes: [
             {
@@ -75,14 +83,14 @@ export default function Line(props) {
                 labelString: xlabel,
               },
               gridLines: {
-                color: "#ffffff",
+                color: "#757575",
               },
               ticks: {
                 min: xMin,
                 max: xMax,
                 maxTicksLimit: 7,
                 maxRotation: 0,
-                fontColor: "#fff",
+                fontColor: "#757575",
               },
               type: "time",
               time: {
@@ -98,15 +106,15 @@ export default function Line(props) {
               scaleLabel: {
                 display: true,
                 labelString: ylabel,
-                fontColor: "#fff",
+                fontColor: "#757575",
               },
               gridLines: {
-                color: "#ffffff",
+                color: "#757575",
               },
               ticks: {
                 min: yMin,
                 max: yMax,
-                fontColor: "#fff",
+                fontColor: "#757575",
               },
             },
           ],

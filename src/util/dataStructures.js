@@ -1,4 +1,7 @@
 function lineDataSet(data) {
+  if(data.length < 0){
+    return { dataPoints:0, xMin:0, xMax:0, yMin:0, yMax:0 };
+  }
   let xArray = [];
   let yArray = [];
 
