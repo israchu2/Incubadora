@@ -3,14 +3,14 @@ import * as firebase from 'firebase';
 
 class Datos{
     HudedadTR(){
-        var starCountRef = fire
+        let starCountRef = fire
           .database()
           .ref("FirebaseIncubadora/humedadInst");
         return starCountRef;
     }
 
     TemperaturaTR(){
-        var starCountRef = fire
+        let starCountRef = fire
           .database()
           .ref("FirebaseIncubadora/temperaturaInst");
         return starCountRef

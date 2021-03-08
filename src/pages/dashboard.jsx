@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -23,11 +24,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 function Dashboard() {
   const classes = useStyles();
 
+  const [currentTemperature, setCurrentTemperature] = useState(null);
+  const [currentHumidity, setCurrentHumidity] = useState(null);
   const [temperature, setTemperature] = useState([]);
   const [humidity, setHumidity] = useState([]);
+
+  const updateArrayData = (array, newValue, lengthLimit = 15) => {
+    let arrayData = newValue ? [...array, newValue] : [...array];
+    if (arrayData.length > lengthLimit) arrayData.shift();
+    return arrayData;
+  };
 
   useEffect(() => {
     let canceled = false;
@@ -36,26 +46,14 @@ function Dashboard() {
     const temperatureObserver = Datos.TemperaturaTR();
 
     humidityObserver.on("value", (snapshot) => {
-      let arraydata = [];
-
-      arraydata.push(...humidity);
-      if (arraydata.length > 15) arraydata.shift();
-      arraydata.push(snapshot.val());
-
       if (!canceled) {
-        setHumidity(arraydata);
+        setCurrentHumidity(snapshot.val());
       }
     });
 
     temperatureObserver.on("value", (snapshot) => {
-      let arraydata = [];
-      
-      arraydata.push(...temperature);
-      if (arraydata.length > 15) arraydata.shift();
-      arraydata.push(snapshot.val());
-
       if (!canceled) {
-        setTemperature(arraydata);
+        setCurrentTemperature(snapshot.val());
       }
     });
 
@@ -65,6 +63,26 @@ function Dashboard() {
       temperatureObserver.off();
     };
   }, []);
+
+  useEffect(() => {
+    let canceled = false;
+    const newHumidity = updateArrayData(humidity, currentHumidity);
+    if (!canceled) setHumidity(newHumidity);
+
+    return () => {
+      canceled = true;
+    };
+  }, [currentHumidity]);
+
+  useEffect(() => {
+    let canceled = false;
+    const newTemp = updateArrayData(temperature, currentTemperature);
+    if (!canceled) setTemperature(newTemp);
+
+    return () => {
+      canceled = true;
+    };
+  }, [currentTemperature]);
 
   return (
     <div className={classes.mcontainer}>
