@@ -1,9 +1,9 @@
 
 function dateFixFormat(dateString){
   const [date, time] = dateString.split("T");
-  const dateArray = date.split("-").map((val) => parseInt(val, 10));
+  const [year, month, day] = date.split("-").map((val) => parseInt(val, 10));
   const timeArray = time.split(":").map((val) => parseInt(val, 10));
-  return dateArray.concat(timeArray);
+  return [year, month+1, day].concat(timeArray);
 }
 
 function lineDataSet(data) {
